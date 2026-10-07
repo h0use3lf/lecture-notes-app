@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>강의 정리 도우미</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <h1>강의 정리 도우미</h1>
+    <p class="sub">PDF 강의자료 + 녹음 파일 → NOVA Gateway (Claude / Gemini) → 정리된 강의노트</p>
+
+    <section class="card">
+      <h2>1. API 키 설정</h2>
+      <label>NOVA API 키</label>
+      <input type="password" id="apiKey" placeholder="발급받은 API 키 입력" />
+      <p class="hint">키는 이 브라우저의 localStorage에만 저장되며 서버로 전송되지 않습니다 (호출 시 헤더로만 사용).</p>
+      <button id="saveKeyBtn">저장</button>
+      <span id="keyStatus" class="status"></span>
+    </section>
+
+    <section class="card">
+      <h2>2. 파일 업로드</h2>
+      <label>강의자료 PDF (선택, 여러 개 선택 가능)</label>
+      <input type="file" id="pdfInput" accept="application/pdf" multiple />
+      <p class="hint">여러 개 선택 시 <b>파일명 순서대로</b> 이어붙여 처리합니다.</p>
+
+      <label>강의 녹음 파일 (선택, mp3/wav/m4a 등, 여러 개 선택 가능)</label>
+      <input type="file" id="audioInput" accept="audio/*" multiple />
+      <p class="hint">
+        긴 녹음도 별도 작업 없이 그대로 올리면 브라우저 안에서 자동으로 구간
+        분할 후 처리합니다 (최초 실행 시 분할 엔진 다운로드로 약간 시간이
+        걸릴 수 있음). 여러 파일을 선택하면 <b>파일명 순서대로</b> 이어붙여
+        처리합니다.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>3. 실행</h2>
+      <button id="runBtn">강의노트 생성 시작</button>
+      <pre id="log" class="log"></pre>
+    </section>
+
+    <section class="card" id="resultCard" hidden>
+      <h2>4. 결과</h2>
+      <textarea id="resultText" rows="20"></textarea>
+      <div class="actions">
+        <button id="copyBtn">복사</button>
+        <button id="downloadBtn">.md 다운로드</button>
+        <button id="pdfBtn">PDF로 저장</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="printArea"></div>
+
+  <script src="https://unpkg.com/marked@12.0.2/marked.min.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

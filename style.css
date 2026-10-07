@@ -1,0 +1,137 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f7f7f8;
+  --card: #ffffff;
+  --text: #1a1a1a;
+  --muted: #666;
+  --border: #ddd;
+  --accent: #2f6feb;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1a1a1a;
+    --card: #242424;
+    --text: #eee;
+    --muted: #999;
+    --border: #3a3a3a;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px 16px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", "Malgun Gothic", sans-serif;
+}
+.wrap { max-width: 720px; margin: 0 auto; }
+h1 { font-size: 1.5rem; margin-bottom: 4px; }
+.sub { color: var(--muted); margin-top: 0; }
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.card h2 { font-size: 1.05rem; margin-top: 0; }
+label { display: block; margin: 10px 0 4px; font-size: 0.9rem; color: var(--muted); }
+input[type="text"], input[type="password"], input[type="number"], input[type="file"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+}
+button {
+  margin-top: 12px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+button:hover { opacity: 0.9; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+.hint { font-size: 0.8rem; color: var(--muted); }
+.status { margin-left: 10px; font-size: 0.85rem; }
+.log {
+  white-space: pre-wrap;
+  font-size: 0.85rem;
+  background: rgba(128,128,128,0.08);
+  border-radius: 6px;
+  padding: 10px;
+  min-height: 40px;
+  max-height: 240px;
+  overflow-y: auto;
+}
+textarea {
+  width: 100%;
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text);
+}
+.actions { margin-top: 8px; display: flex; gap: 8px; }
+
+#printArea { display: none; }
+
+@media print {
+  @page { size: A4; margin: 20mm 18mm; }
+
+  body > *:not(#printArea) { display: none !important; }
+  #printArea {
+    display: block !important;
+    color: #1a1a1a;
+    font-family: "Malgun Gothic", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+    font-size: 11pt;
+    line-height: 1.6;
+    max-width: none;
+  }
+  #printArea h1 { font-size: 19pt; border-bottom: 2px solid #333; padding-bottom: 8px; margin-top: 0; }
+  #printArea h2 { font-size: 15pt; margin-top: 28px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+  #printArea h3 { font-size: 13pt; margin-top: 20px; color: #1a3d7c; }
+  #printArea h4 { font-size: 11.5pt; margin-top: 14px; color: #333; }
+  #printArea p, #printArea li { font-size: 10.5pt; orphans: 3; widows: 3; }
+  #printArea table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 9.5pt; break-inside: avoid-page; }
+  #printArea th, #printArea td { border: 1px solid #999; padding: 5px 8px; text-align: left; }
+  #printArea th { background: #eef2f8; }
+
+  /* 실 강의 내용: 반투명 녹색, ⚠ 핵심 강조점: 반투명 주황색 */
+  #printArea blockquote {
+    margin: 10px 0;
+    padding: 8px 14px;
+    font-size: 10pt;
+    color: #333;
+    border-left: 4px solid #999;
+    break-inside: avoid-page;
+  }
+  #printArea blockquote.lecture-note {
+    background: rgba(46, 160, 67, 0.15);
+    border-left-color: #2ea043;
+  }
+  #printArea blockquote.key-emphasis {
+    background: rgba(255, 140, 0, 0.18);
+    border-left-color: #e8790c;
+  }
+
+  #printArea code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 9.5pt; }
+  #printArea hr { border: none; border-top: 1px solid #ddd; margin: 24px 0; }
+  #printArea strong { color: #111; }
+
+  /* 대/중/소 분류 단위(섹션)가 페이지 중간에서 잘리지 않도록 묶음 단위로 다음 페이지로 이관 */
+  #printArea section.sec-h2,
+  #printArea section.sec-h3,
+  #printArea section.sec-h4 {
+    break-inside: avoid-page;
+  }
+  #printArea h1, #printArea h2, #printArea h3, #printArea h4 {
+    break-after: avoid-page;
+  }
+}
